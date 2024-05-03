@@ -27,7 +27,7 @@ class CommaSeparatedListAction(argparse.Action):
 parser = argparse.ArgumentParser(description="Merge datasets")
 
 parser.add_argument('--datasets', action=CommaSeparatedListAction, help='A comma-separated list of strings')
-parser.add_argument('--base_path', type = str, default="data/")
+parser.add_argument('--base_path', type = str, default="../data/")
 
 args = parser.parse_args()
 datasets_dir = [f"{args.base_path}{x}_q_values.csv" for x in args.datasets]
@@ -44,7 +44,6 @@ for name, dir in zip(args.datasets, datasets_dir):
 
     datasets[name]["q_values"] = datasets[name]["q_values"].apply(lambda x: normalize_dict(x, mean, std))
 
-    datasets[name].drop
 
 
 sampled_dfs = [df.sample(n=min(15000, len(df)), random_state=1) for df in datasets.values()]
@@ -53,4 +52,4 @@ sampled_dfs = [df.sample(n=min(15000, len(df)), random_state=1) for df in datase
 combined_df = pd.concat(sampled_dfs, ignore_index=True).sample(frac = 1)
 
 # Now you can use combined_df as your single DataFrame
-combined_df.to_csv(f"{args.base_path}combined_q_values.csv" , index = False)
+combined_df.to_csv(f"../data/{args.base_path}combined_q_values.csv" , index = False)

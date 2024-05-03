@@ -234,7 +234,7 @@ for cur_episode in range(generation_episodes):
             states_str.append(state_str)
             states_raw.append(current_state)
             q_values_l.append(q_values_prc)
-            #prompts.append(prompt)
+            prompts.append(prompt)
 
         player_id = time_step.observations["current_player"]
 
@@ -256,5 +256,5 @@ for cur_episode in range(generation_episodes):
 # Save to DataFrame and CSV
 storage['str_state'] = states_str
 storage['q_values'] = q_values_l
-#storage['prompts'] = prompts 
-storage.to_csv(f'{game}_q_values.csv', index=False)
+storage['prompts'] = prompts 
+storage.to_csv(f'../data/{game}_q_values.csv', index=False)
